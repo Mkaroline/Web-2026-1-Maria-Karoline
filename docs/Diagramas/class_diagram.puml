@@ -1,0 +1,161 @@
+@startuml class_diagram
+skinparam backgroundColor #FAFAFA
+skinparam defaultFontName Arial
+skinparam classBackgroundColor #EBF5FB
+skinparam classBorderColor #2E75B6
+skinparam classHeaderBackgroundColor #1F4E79
+skinparam classFontColor #FFFFFF
+skinparam classHeaderFontColor #FFFFFF
+skinparam ArrowColor #2E75B6
+skinparam ArrowThickness 1.5
+skinparam linetype ortho
+
+title SIFU — Serviços Especializados PROAE/UFERSA\nDiagrama de Classes
+
+enum PerfilUsuario {
+  DISCENTE
+  PROFISSIONAL
+  GESTAO_PROAE
+  COAE
+}
+
+enum TipoServico {
+  PSICOLOGIA
+  SERVICO_SOCIAL
+  NUTRICAO
+  ODONTOLOGIA
+  ORIENTACAO_PEDAGOGICA
+}
+
+enum StatusAgendamento {
+  PENDENTE
+  CONFIRMADO
+  CANCELADO_DISCENTE
+  CANCELADO_PROFISSIONAL
+  REALIZADO
+  FALTOU
+}
+
+enum ModalidadeAtendimento {
+  PRESENCIAL
+  REMOTA
+}
+
+enum TipoEncaminhamento {
+  INTERNO
+  EXTERNO
+}
+
+class Usuario {
+  + id: String
+  + nome: String
+  + cpf: String
+  + email: String
+  + telefone: String
+  + campus: String
+  + perfil: PerfilUsuario
+  + ativo: Boolean
+  + createdAt: DateTime
+}
+
+class Discente {
+  + matricula: String
+  + curso: String
+  + beneficiarioAssistencia: Boolean
+}
+
+class Profissional {
+  + siape: String
+  + registroProfissional: String
+  + servico: TipoServico
+}
+
+class GestaoProae {
+  + siape: String
+  + cargo: String
+}
+
+class Agendamento {
+  + id: String
+  + servico: TipoServico
+  + status: StatusAgendamento
+  + dataHora: DateTime
+  + campus: String
+  + modalidade: ModalidadeAtendimento
+  + demandaTexto: String
+  + triagemIaSugestao: String
+  + triagemIaJustificativa: String
+  + indicadorUrgencia: Boolean
+  + createdAt: DateTime
+  + updatedAt: DateTime
+}
+
+class Prontuario {
+  + id: String
+  + evolucao: String
+  + dataHora: DateTime
+  + duracaoMinutos: Integer
+  + retornoAgendado: Date
+  + createdAt: DateTime
+}
+
+class Encaminhamento {
+  + id: String
+  + tipo: TipoEncaminhamento
+  + servicoDestino: TipoServico
+  + descricaoExterno: String
+  + unidadeExterna: String
+  + observacoes: String
+  + createdAt: DateTime
+}
+
+class Anexo {
+  + id: String
+  + nomeArquivo: String
+  + urlS3: String
+  + tipoMime: String
+  + tamanhoBytes: Long
+  + createdAt: DateTime
+}
+
+class DisponibilidadeAgenda {
+  + id: String
+  + diaSemana: Integer
+  + horaInicio: Time
+  + horaFim: Time
+  + capacidadeMaxima: Integer
+  + campus: String
+  + modalidade: ModalidadeAtendimento
+  + ativo: Boolean
+}
+
+class BloqueioAgenda {
+  + id: String
+  + dataInicio: Date
+  + dataFim: Date
+  + motivo: String
+}
+
+class Avaliacao {
+  + id: String
+  + nota: Integer
+  + comentario: String
+  + dataEnvio: DateTime
+}
+
+' Herança
+Usuario <|-- Discente
+Usuario <|-- Profissional
+Usuario <|-- GestaoProae
+
+' Relacionamentos
+Discente "1" --> "0..*" Agendamento : solicita
+Profissional "1" --> "0..*" Agendamento : atende
+Agendamento "1" --> "0..1" Prontuario : gera
+Prontuario "1" --> "0..*" Encaminhamento : contém
+Prontuario "1" --> "0..*" Anexo : possui
+Agendamento "1" --> "0..1" Avaliacao : recebe
+Profissional "1" --> "0..*" DisponibilidadeAgenda : define
+DisponibilidadeAgenda "1" --> "0..*" BloqueioAgenda : possui
+
+@enduml

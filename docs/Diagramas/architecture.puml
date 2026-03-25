@@ -1,0 +1,56 @@
+@startuml architecture
+
+skinparam backgroundColor #FAFAFA
+skinparam defaultFontName Arial
+skinparam ArrowColor #2E75B6
+skinparam ArrowThickness 2
+skinparam nodesep 60
+skinparam ranksep 80
+
+title SIFU — Serviços Especializados PROAE/UFERSA\nDiagrama de Arquitetura
+
+actor "Discente" as discente #LightBlue
+actor "Profissional\n(Técnico-Adm.)" as profissional #LightGreen
+actor "Gestão PROAE\n/ COAE" as gestao #LightYellow
+
+rectangle "Navegador (Client)" as browser #E8F4FD {
+  component "[React + TypeScript\nTailwind CSS]" as react
+  component "[Transformers.js\nModelo ONNX — Triagem IA]" as ia
+}
+
+cloud "AWS" as aws {
+  component "Route 53\n(DNS)" as r53 #FFE0B2
+  component "API Gateway" as apigw #FFE0B2
+  component "Cognito\n(Auth / JWT)" as cognito #FFE0B2
+
+  rectangle "Compute" as compute #FFF3E0 {
+    component "Lambda CRUD\n(agendamentos, prontuários,\ndisponibilidade, usuários)" as lambda_crud
+    component "Lambda OBJ\n(upload / download S3)" as lambda_obj
+  }
+
+  database "DynamoDB\n(NoSQL)" as dynamo #E8F5E9
+  storage "S3 Bucket\n(prontuários, laudos,\nmodelo ONNX)" as s3 #E8F5E9
+  component "SES\n(e-mails)" as ses #FFE0B2
+}
+
+discente --> react : acessa
+profissional --> react : acessa
+gestao --> react : acessa
+
+react --> ia : texto da demanda\n(triagem local)
+ia --> s3 : carrega modelo ONNX\n(uma vez, cache browser)
+
+react --> r53 : requisições HTTPS
+r53 --> apigw
+apigw --> cognito : valida JWT
+apigw --> lambda_crud : CRUD operations
+apigw --> lambda_obj : file operations
+
+lambda_crud --> dynamo : lê / escreve
+lambda_crud --> ses : dispara notificações
+lambda_obj --> s3 : upload / download
+
+ses --> discente : confirmação, lembrete,\ncancelamento
+ses --> profissional : nova solicitação
+
+@enduml
