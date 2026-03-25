@@ -1,1 +1,10 @@
-# Descrição do Projeto de Atualização dos Projetos Pedagógicos dos Cursos de Graduação
+# Descrição do Projeto Sistema de Planejamento Acadêmico
+
+## Descrição do Problema a ser solucionado
+<p align="justify"> O processo de planejamento acadêmico na UFERSA ainda ocorre de forma pouco estruturada e, muitas vezes, dependente de orientação informal. O discente precisa analisar por conta própria a matriz curricular, interpretar regras do Projeto Pedagógico do Curso (PPC) e escolher disciplinas para cada semestre sem um suporte automatizado. Nesse contexto, é comum a seleção de componentes que não são contabilizados como optativos válidos, o não cumprimento de pré-requisitos ou a montagem inadequada da carga horária, o que pode resultar em atrasos na formação. Além disso, não há uma visualização clara e centralizada do progresso acadêmico nem validações em tempo real que auxiliem na tomada de decisão.</p>
+
+<p align="justify"> O Sistema de Planejamento Acadêmico surge como uma solução para digitalizar e centralizar esse processo dentro do SIFU, oferecendo ao discente uma ferramenta integrada para organizar sua trajetória acadêmica. Por meio da automatização das regras curriculares. Além disso, incorpora um assistente baseado em inteligência artificial que orienta o aluno durante o planejamento, sugerindo disciplinas adequadas ao seu histórico e explicando as regras do curso de forma acessível. alinhada às diretrizes institucionais e com maior transparência no acompanhamento do progresso acadêmico. </p>
+
+<p align="justify"> Diante dessa realidade, o sistema propõe centralizar e automatizar o planejamento acadêmico dentro do SIFU, permitindo que o aluno visualize claramente sua situação e valide suas escolhas antes de efetivar a matrícula. Através da automatização das regras do curso, o sistema identifica se uma disciplina realmente conta para a formação, evitando erros que podem atrasar a graduação.
+Além disso, o sistema incorpora um assistente baseado em inteligência artificial que atua como um orientador acadêmico digital, auxiliando o aluno durante todo o processo. Esse assistente sugere disciplinas com base no histórico do aluno e explica, de forma simples, quais escolhas são mais adequadas para garantir a conclusão do curso.</p>
+
