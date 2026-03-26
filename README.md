@@ -1,4 +1,4 @@
-# Serviços Especializados PROAE — SIFU/UFERSA
+# Sistema de Serviços Especializados PROAE — SIFU/UFERSA
 
 
 
