@@ -169,7 +169,7 @@ O projeto utiliza IA generativa diretamente no frontend para realizar a **triage
 
 - **Nome do repositório:** `web-2026-1-Maria-Karoline`
 - **Usuário GitHub:** _(Mkaroline)_
-- **Link do repositório:** _(https://github.com/Mkaroline/Web-2026-1-Maria-Karoline)_
+- **Link do repositório:** <https://github.com/Mkaroline/Web-2026-1-Maria-Karoline>
 
 ---
 
