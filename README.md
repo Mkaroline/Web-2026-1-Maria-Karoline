@@ -187,8 +187,8 @@ Web-2026-1-Maria-Karoline/
 | Documento | Descrição |
 |---|---|
 | [📄 Descrição do Projeto](./docs/descricao_do_projeto.md) | Problema, perfis, dados armazenados, fluxo, telas e IA |
-| [🏗 Diagrama de Arquitetura](./docs/diagrams/architecture/architecture.png) | Componentes AWS e interações |
-| [📐 Diagrama de Classes](./docs/diagrams/class_diagram/class_diagram.png) | Modelo de dados completo |
+| [🏗 Diagrama de Arquitetura](./docs/Diagramas/architecture/architecture.png) | Componentes AWS e interações |
+| [📐 Diagrama de Classes](./docs/Diagramas/class_diagram/class_diagram.png) | Modelo de dados completo |
 | [💰 Estimativa de Custos AWS](https://calculator.aws/#/estimate?id=3556c73ad4b0e05091baaa8011fb6b70b4e511d6) | Infraestrutura serverless por uso |
 
 ---
