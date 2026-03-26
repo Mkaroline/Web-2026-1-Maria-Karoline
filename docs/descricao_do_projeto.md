@@ -4,7 +4,7 @@
 
 ## 1. Descrição do problema a ser solucionado
 
-**Link do portfólio de referência:** https://ep.ufersa.edu.br/wp-content/uploads/portfolioep/assistencia/servicosesp/index.html#list
+**Link do portfólio de referência:** <https://ep.ufersa.edu.br/wp-content/uploads/portfolioep/assistencia/servicosesp/index.html#list>
 
 Os Serviços Especializados da Pró-Reitoria de Assuntos Estudantis (PROAE) da UFERSA — Psicologia, Serviço Social, Nutrição, Odontologia e Orientação Pedagógica — operam hoje de forma majoritariamente manual e descentralizada. O discente que necessita de atendimento precisa deslocar-se fisicamente até a PROAE ou às COAEs dos campi avançados, buscar informações por canais informais (e-mail, WhatsApp, redes sociais) sobre disponibilidade de horários, preencher fichas em papel e aguardar contato posterior do profissional responsável. Não existe um canal único digital para agendamento, acompanhamento de histórico de atendimentos ou notificações automáticas sobre retornos agendados.
 
@@ -80,22 +80,7 @@ Acessa os agendamentos e atendimentos realizados em seu campus específico. Visu
 
 A infraestrutura utiliza serviços serverless, com cobrança por uso — sem custo fixo de servidores ociosos. Os valores abaixo são estimados com base no uso esperado do sistema para atendimento dos campi da UFERSA (Mossoró, Pau dos Ferros, Caraúbas e Angicos).
 
-| Serviço | Configuração utilizada | Custo mensal |
-|---|---|---|
-| Amazon S3 | 30 GB armazenamento, 50 GB egress/mês, 30.000 requisições GET | $5,80 |
-| Amazon Route 53 | 1 zona hospedada | $0,90 |
-| Amazon SES | 3.000 e-mails enviados/mês | $0,30 |
-| Amazon DynamoDB | Tabela Standard, itens de 1 KB, 1 GB de dados | $0,27 |
-| Amazon API Gateway | 30.000 requisições/mês, tamanho médio 10 KB | $0,10 |
-| AWS Lambda — CRUD | 30.000 invocações/mês, 512 MB | $0,00 |
-| AWS Lambda — OBJ | 5.000 invocações/mês, 512 MB | $0,00 |
-| Amazon Cognito | 1.500 MAUs ativos/mês | $0,00 |
-| **Total mensal** | | **$7,37** |
-| **Total anual (12 meses)** | | **$88,44** |
-
-> O S3 representa 79% do custo mensal, principalmente pelo armazenamento e download de prontuários e do modelo ONNX. Após cache no browser, o egress tende a reduzir nos meses seguintes.
-
-**URL pública da estimativa:** https://calculator.aws/#/estimate?id=sifu-proae-servicos-especializados *(a ser gerada após cadastro na calculadora AWS)*
+**URL pública da estimativa:** <https://calculator.aws/#/estimate?id=3556c73ad4b0e05091baaa8011fb6b70b4e511d6>
 
 ---
 
@@ -183,14 +168,14 @@ O projeto utiliza IA generativa diretamente no frontend para realizar a **triage
 ## 5. Conta do GitHub
 
 - **Nome do repositório:** `web-2026-1-Maria-Karoline`
-- **Usuário GitHub:** *(Mkaroline)*
-- **Link do repositório:** *(https://github.com/Mkaroline/Web-2026-1-Maria-Karoline)*
+- **Usuário GitHub:** _(Mkaroline)_
+- **Link do repositório:** _(https://github.com/Mkaroline/Web-2026-1-Maria-Karoline)_
 
 ---
 
 ## 6. Diagramas
 
-*(Diagramas de arquitetura e de classes a serem inseridos após confecção no app.diagrams.net)*
+_(Diagramas de arquitetura e de classes a serem inseridos após confecção no app.diagrams.net)_
 
 ### Diagrama de Arquitetura — descrição textual
 
@@ -213,5 +198,7 @@ O projeto utiliza IA generativa diretamente no frontend para realizar a **triage
 (notificações por e-mail)
 ```
 
-### Diagrama de Classes — entidades principais
+### Diagramas
 
+![Diagrama Arquitetura](../docs/Diagramas/architecture.png)
+![Diagrama de Classes](../docs/Diagramas/class_diagram.png)
