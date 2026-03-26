@@ -1,118 +1,201 @@
-# Descrição do Projeto Sistema de Serviços Especializados PROAE — SIFU/UFERSA
+# Serviços Especializados PROAE — SIFU/UFERSA
 
-Módulo do **Sistema Integrado Funcional e Unificado (SIFU)** da UFERSA que digitaliza e centraliza o agendamento, atendimento e acompanhamento dos Serviços Especializados da Pró-Reitoria de Assuntos Estudantis (PROAE): **Psicologia, Serviço Social, Nutrição, Odontologia e Orientação Pedagógica**.
 
----
 
-## Problema
+[Sobre](#-sobre-o-projeto) •
+[Funcionalidades](#-funcionalidades) •
+[Tecnologias](#-tecnologias) •
+[Arquitetura](#-arquitetura) •
+[IA Generativa](#-ia-generativa) •
+[Como Executar](#-como-executar-o-projeto) •
+[Documentação](#-documentação) •
+[Autora](#-autora)
 
-<p align="justify"> Os Serviços Especializados da PROAE operam de forma manual e descentralizada. Discentes precisam se deslocar fisicamente à PROAE ou às COAEs dos campi avançados, buscar informações por canais informais (e-mail, WhatsApp) e preencher fichas em papel — sem nenhum canal digital unificado para agendamento, histórico de atendimentos ou notificações automáticas.</p>
-
-<p align="justify"> Do lado dos profissionais, não há ferramenta centralizada para gerenciar agendas, registrar prontuários ou gerar relatórios de produção. A ausência de dados consolidados dificulta a tomada de decisão sobre alocação de recursos e identificação de perfis de vulnerabilidade estudantil.</p>
-
----
-
-## Solução
-
-Aplicação web que digitaliza todo o fluxo — do agendamento até o prontuário — com um **assistente de IA embarcado no browser** que realiza a triagem inicial da demanda do discente, sugere o serviço mais adequado e detecta situações de urgência antes mesmo do primeiro contato com o profissional
+> ⚠️ **Projeto em Desenvolvimento:** Este projeto está sendo desenvolvido como trabalho da disciplina de Programação Web — UFERSA 2026.1.
 
 ---
 
-## Funcionalidades
+## 💡 Sobre o Projeto
 
-- Agendamento online com triagem por IA e seleção de data/horário disponível
-- Notificações automáticas de confirmação, lembrete (24h antes) e cancelamento por e-mail (Amazon SES)
-- Prontuário clínico com registro de evolução, encaminhamentos internos e externos e anexos (laudos, declarações)
-- Gerenciamento de agenda por profissional: horários disponíveis, bloqueios e capacidade por turno
-- Avaliação de atendimento pelo discente ao final de cada sessão
-- Painel gerencial consolidado para PROAE e COAEs com indicadores de todos os campi
-- Relatórios de produção mensal exportáveis para prestação de contas institucional
+Os Serviços Especializados da Pró-Reitoria de Assuntos Estudantis (PROAE) da UFERSA — Psicologia, Serviço Social, Nutrição, Odontologia e Orientação Pedagógica — operam hoje de forma majoritariamente manual e descentralizada. O discente precisa se deslocar fisicamente até a PROAE ou às COAEs dos campi avançados, buscar informações por canais informais (e-mail, WhatsApp, redes sociais) sobre disponibilidade de horários, preencher fichas em papel e aguardar contato posterior do profissional responsável. Não existe canal único digital para agendamento, acompanhamento de histórico de atendimentos ou notificações automáticas.
+
+Este sistema digitaliza e centraliza o fluxo de agendamento, atendimento e acompanhamento dos Serviços Especializados dentro do **SIFU**, com um **assistente de IA** que auxilia o discente na triagem inicial e na identificação do serviço mais adequado à sua demanda antes mesmo do primeiro contato com o profissional.
+
+**Portfólio de referência:** <https://ep.ufersa.edu.br/wp-content/uploads/portfolioep/assistencia/servicosesp/index.html#list>
 
 ---
 
-## Assistente de IA
+## ✨ Funcionalidades
 
-A triagem ocorre inteiramente no dispositivo do usuário — sem chamadas a APIs externas.
+- **Triagem por IA** — assistente analisa a descrição do discente e sugere o serviço mais adequado (Psicologia, Serviço Social, Nutrição, Odontologia ou Orientação Pedagógica), com justificativa e detecção de urgência
+- **Agendamento online** — escolha de data, horário e modalidade (presencial/remota) com confirmação automática
+- **Acompanhamento de status** — visualização de todos os agendamentos com status atualizado em tempo real
+- **Prontuário eletrônico** — registro de evoluções, encaminhamentos internos e externos e retornos agendados pelo profissional
+- **Notificações por e-mail** — confirmação, lembrete 24h antes e cancelamento automático via SES
+- **Encaminhamentos** — entre serviços especializados (interno) ou para a rede de saúde do município (externo)
+- **Avaliação de atendimento** — formulário pós-consulta com nota de satisfação e comentário
+- **Painel do profissional** — agenda diária/semanal, gerenciamento de disponibilidade e relatório mensal de produção
+- **Painel gerencial PROAE/COAE** — indicadores consolidados de todos os serviços: taxa de ocupação, perfil dos discentes, tempo médio de espera e avaliações
 
-| | |
+---
+
+## 🛠 Tecnologias
+
+### Frontend
+
+| Categoria | Tecnologia |
 |---|---|
-| **Modelo base** | `flan-t5-small` (Google) com fine-tuning |
-| **Domínio do fine-tuning** | Descrições, critérios de elegibilidade e tipos de demanda dos 5 serviços da PROAE/UFERSA |
-| **Formato** | ONNX int8 quantizado (~30–50 MB), hospedado no S3 |
-| **Execução** | Transformers.js (ONNX Runtime Web) — inferência 100% no browser |
-| **Treinamento** | Google Colab · Hugging Face `transformers` · `optimum` |
+| **Framework** | React 19 + TypeScript |
+| **Estilização** | Tailwind CSS |
+| **Formulários** | React Hook Form + Zod |
+| **Requisições** | Axios |
+| **Roteamento** | React Router DOM |
+| **Animações** | Motion |
+| **IA no browser** | Transformers.js (ONNX Runtime Web) |
+| **Ícones** | React Icons |
+| **Qualidade** | ESLint + Prettier |
 
-**Exemplo de interação:**
-> Discente: *"Estou tendo dificuldades de concentração nos estudos e me sentindo ansioso."*
-> IA: *"Com base na sua descrição, o Serviço de Psicologia pode ser o mais indicado, pois atua com questões emocionais e de saúde mental que impactam o desempenho acadêmico. Você também pode considerar a Orientação Pedagógica para estratégias de estudo."*
+### Backend & Infraestrutura (AWS Serverless)
 
-Se a IA detectar expressões associadas a situações de crise (sofrimento intenso, pensamentos de autolesão), o sistema oferece imediatamente o contato da equipe de Psicologia para atendimento de urgência.
-
----
-
-## Perfis de Usuário
-
-| Perfil | Papel no sistema |
+| Serviço | Uso |
 |---|---|
-| **Discente** | Agenda atendimentos, acompanha histórico, avalia sessões, reagenda ou cancela |
-| **Profissional (Técnico-Adm.)** | Gerencia agenda, registra prontuários e evoluções, realiza encaminhamentos |
-| **Gestão PROAE** | Acessa painel gerencial consolidado, gerencia profissionais, exporta relatórios |
-| **COAE (campi avançados)** | Visualiza indicadores locais, encaminha discentes para a PROAE central |
+| **AWS Cognito** | Autenticação e sessão de usuários |
+| **API Gateway** | Exposição das APIs REST com validação JWT |
+| **AWS Lambda (CRUD)** | Lógica de negócio: agendamentos, prontuários, disponibilidade e usuários |
+| **AWS Lambda (OBJ)** | Upload e download de arquivos no S3 |
+| **DynamoDB** | Banco de dados NoSQL orientado a documentos |
+| **S3** | Armazenamento de documentos clínicos e modelo ONNX |
+| **Route 53** | Roteamento DNS |
+| **SES** | Notificações automáticas por e-mail |
 
 ---
 
-## Fluxo do Atendimento
+## 🏗 Arquitetura
+
+A solução adota arquitetura **serverless** na AWS, com frontend React rodando no navegador e backend composto por funções Lambda acionadas via API Gateway. A triagem por IA ocorre **inteiramente no browser** via Transformers.js, sem custo de servidor adicional.
 
 ```
-Login do discente
-  → Triagem por IA (browser) → sugestão do serviço
-  → Seleção de data/horário → Agendamento PENDENTE
-  → Notificação ao profissional
-  → Profissional confirma → CONFIRMADO  (ou recusa → CANCELADO_PROFISSIONAL)
-  → Lembrete automático 24h antes
-  → Atendimento realizado → REALIZADO  (ou FALTOU)
-  → Registro de evolução + encaminhamento (opcional)
-  → Convite de avaliação ao discente
-  → Dados consolidados no painel da PROAE/COAE
+[Navegador / React + Transformers.js]
+         |
+   [Route 53 / DNS]
+         |
+   [API Gateway] ←→ [Cognito (Auth)]
+         |
+   ┌─────┴─────┐
+   ▼           ▼
+[Lambda CRUD] [Lambda OBJ]
+      |              |
+[DynamoDB]      [S3 Bucket]
+              (prontuários, laudos,
+               modelo ONNX)
+      |
+    [SES]
+(notificações por e-mail)
 ```
 
-**Status do agendamento:** `PENDENTE` · `CONFIRMADO` · `CANCELADO_DISCENTE` · `CANCELADO_PROFISSIONAL` · `REALIZADO` · `FALTOU`
+> Detalhes completos da arquitetura: [📄 Descrição do Projeto](./docs/descricao_do_projeto.md#2-arquitetura-do-sistema)
+
+**Estimativa de custos AWS:** <https://calculator.aws/#/estimate?id=3556c73ad4b0e05091baaa8011fb6b70b4e511d6>
 
 ---
 
-## Arquitetura
+## 🤖 IA Generativa
 
-Arquitetura **serverless** na AWS. O frontend React roda no browser; o backend é composto por funções Lambda acionadas via API Gateway. A IA de triagem executa inteiramente no cliente, sem Lambda dedicada.
+O assistente de IA é executado **diretamente no browser**, sem nenhuma chamada a servidor externo.
 
-```
-┌────────────────────────────────────────────────────┐
-│            CLIENT (Navegador)                      │
-│  React · TypeScript · Tailwind · Transformers.js   │
-└─────────────────────┬──────────────────────────────┘
-                      │ HTTPS
-                   Route 53
-                      │
-             API Gateway + Cognito
-             ┌────────┴────────┐
-        Lambda CRUD       Lambda OBJ
-             │                 │
-          DynamoDB      S3 (anexos + modelo ONNX)
-             │
-         SES (notificações)
-```
+- **Modelo base:** flan-t5-small (Google) com fine-tuning sobre as descrições, critérios de elegibilidade e tipos de demanda dos cinco Serviços Especializados da PROAE/UFERSA
+- **Fine-tuning:** realizado no Google Colab com a biblioteca `transformers` da Hugging Face e exportação via `optimum`
+- **Formato:** ONNX int8 quantizado (~30–50 MB), hospedado no S3, com CORS habilitado para leitura pelo navegador
+- **Execução:** Transformers.js (ONNX Runtime Web) — o modelo é baixado uma vez e cacheado localmente no browser
 
-**Stack frontend:** React · TypeScript · Tailwind CSS · React Router DOM · React Hook Form · Zod · Axios · Motion · React Icons · Transformers.js
+O assistente analisa a descrição do discente em linguagem natural (ex: *"estou tendo dificuldades de concentração nos estudos e me sentindo ansioso"*) e retorna a sugestão do serviço mais adequado com justificativa. Se identificar palavras ou expressões associadas a situações de crise, sinaliza imediatamente para que o sistema ofereça o contato direto da equipe de Psicologia para atendimento de urgência.
 
-**Stack backend (AWS):** Lambda · API Gateway · Cognito · DynamoDB · S3 · SES · Route 53
+> Detalhes completos: [📄 Descrição do Projeto — seção IA Generativa](./docs/descricao_do_projeto.md#4-ia-generativa-no-projeto)
 
 ---
 
-## Repositório
+## 🚀 Como Executar o Projeto
 
-| | |
+### Pré-requisitos
+
+- Node.js 20+
+- npm ou pnpm
+
+### 1. Clone o Repositório
+
+```bash
+git clone https://github.com/Mkaroline/Web-2026-1-Maria-Karoline.git
+cd Web-2026-1-Maria-Karoline
+```
+
+### 2. Instale as Dependências
+
+```bash
+npm install
+```
+
+### 3. Crie o Arquivo de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto baseado no `.env.example`:
+
+```env
+VITE_API_URL=https://sua-api-id.execute-api.us-east-1.amazonaws.com
+VITE_S3_URL=https://seu-bucket.s3.amazonaws.com
+VITE_COGNITO_USER_POOL_ID=us-east-1_XXXXXXXXX
+VITE_COGNITO_CLIENT_ID=seu_client_id_aqui
+VITE_COGNITO_REGION=us-east-1
+```
+
+### 4. Execute em Modo de Desenvolvimento
+
+```bash
+npm run dev
+```
+
+A aplicação estará disponível em <http://localhost:5173>.
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+Web-2026-1-Maria-Karoline/
+├── docs/
+│   ├── descricao_do_projeto.md
+│   └── diagrams/
+│       ├── architecture/
+│       │   ├── architecture.puml
+│       │   └── architecture.png
+│       └── class_diagram/
+│           ├── class_diagram.puml
+│           └── class_diagram.png
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── hooks/
+│   ├── services/
+│   └── main.tsx
+├── .env.example
+├── package.json
+└── README.md
+```
+
+---
+
+## 📚 Documentação
+
+| Documento | Descrição |
 |---|---|
-| **Usuário GitHub** | [Mkaroline](https://github.com/Mkaroline) |
-| **Repositório** | [Web-2026-1-Maria-Karoline](https://github.com/Mkaroline/Web-2026-1-Maria-Karoline) |
+| [📄 Descrição do Projeto](./docs/descricao_do_projeto.md) | Problema, perfis, dados armazenados, fluxo, telas e IA |
+| [🏗 Diagrama de Arquitetura](./docs/diagrams/architecture/architecture.png) | Componentes AWS e interações |
+| [📐 Diagrama de Classes](./docs/diagrams/class_diagram/class_diagram.png) | Modelo de dados completo |
+| [💰 Estimativa de Custos AWS](https://calculator.aws/#/estimate?id=3556c73ad4b0e05091baaa8011fb6b70b4e511d6) | Infraestrutura serverless por uso |
 
+---
 
+## 👩‍💻 Autora
 
+**Maria Karoline**
+
+- GitHub: [@Mkaroline](https://github.com/Mkaroline)
+- Email: maria.karoline@alunos.ufersa.edu.br
